@@ -1,0 +1,82 @@
+version: '2.1'
+
+services:
+
+  mysql:
+    image: mysql
+    container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password --disable-log-bin --innodb-flush-log-at-trx-commit=2
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: makemoney
+    volumes:
+      - ../../data/mysql:/var/lib/mysql
+
+  redis:
+    image: redis
+    container_name: redis
+    command: ["redis-server"]
+    restart: always
+    ports:
+      - 6379:6379
+    sysctls:
+      - net.core.somaxconn=1024
+    volumes:
+      - ../../data/redis:/data
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    volumes:
+      - ../../data/mongo:/data
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+    volumes:
+      - ./phpmyadmin/shortcuts_handler.js:/var/www/html/js/shortcuts_handler.js
+
+  phpredmin:
+    image: sasanrose/phpredmin
+    container_name: phpredmin
+    restart: always
+    environment:
+      - PHPREDMIN_DATABASE_REDIS_0_HOST=redis
+    ports:
+      - "8089:80"
+
+  phpmoadmin:
+    image: thinkcube/phpmoadmin
+    container_name: phpmoadmin
+    restart: always
+    environment:
+      - PHPREDMIN_DATABASE_REDIS_0_HOST=mongo
+    ports:
+      - "8090:80"
+
+  rockmongo:
+    image: webts/rockmongo
+    container_name: rockmongo
+    restart: always
+    ports:
+      - "8091:80"
+
+  # genghis:
+  #   image: dockervan/genghis
+  #   container_name: genghis
+  #   restart: always
+  #   ports:
+  #     - "8099:80"
