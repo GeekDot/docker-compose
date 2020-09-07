@@ -1,0 +1,13 @@
+version: '2.1'
+
+services:
+
+  dokuwiki:
+    image: bitnami/dokuwiki
+    container_name: dokuwiki
+    restart: always
+    ports:
+      - 8086:8080
+      - 8087:8443
+    volumes:
+      - ../../data/dokuwiki:/bitnami/dokuwiki

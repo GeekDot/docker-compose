@@ -1,0 +1,39 @@
+version: '2.1'
+
+services:
+
+  mysql:
+    extends:
+        file: ./common/common-services.yml
+        service: mysql
+
+  phpmyadmin:
+    extends:
+        file: ./common/common-services.yml
+        service: phpmyadmin
+    depends_on:
+      - mysql
+
+  redis:
+    extends:
+        file: ./common/common-services.yml
+        service: redis
+
+  phpredmin:
+    extends:
+        file: ./common/common-services.yml
+        service: phpredmin
+    depends_on:
+      - redis
+
+  mongo:
+    extends:
+        file: ./common/common-services.yml
+        service: mongo
+
+  mongo-express:
+    extends:
+        file: ./common/common-services.yml
+        service: mongo-express
+    depends_on:
+      - mongo

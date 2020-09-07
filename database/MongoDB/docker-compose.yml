@@ -1,0 +1,15 @@
+version: '2.1'
+
+services:
+
+  mongo:
+    extends:
+        file: ../common/common-services.yml
+        service: mongo
+
+  mongo-express:
+    extends:
+        file: ../common/common-services.yml
+        service: mongo-express
+    depends_on:
+      - mongo

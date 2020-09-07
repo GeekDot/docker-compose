@@ -1,0 +1,15 @@
+version: '2.1'
+
+services:
+
+  redis:
+    extends:
+        file: ../common/common-services.yml
+        service: redis
+
+  phpredmin:
+    extends:
+        file: ../common/common-services.yml
+        service: phpredmin
+    depends_on:
+      - redis

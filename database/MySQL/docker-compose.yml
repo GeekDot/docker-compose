@@ -1,0 +1,15 @@
+version: '2.1'
+
+services:
+
+  mysql:
+    extends:
+        file: ../common/common-services.yml
+        service: mysql
+
+  phpmyadmin:
+    extends:
+        file: ../common/common-services.yml
+        service: phpmyadmin
+    depends_on:
+      - mysql
